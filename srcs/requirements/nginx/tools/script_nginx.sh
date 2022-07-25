@@ -1,19 +1,11 @@
-# https://www.8host.com/blog/sozdanie-samopodpisannogo-ssl-sertifikata-dlya-nginx-v-ubuntu-18-04/
-
-# openssl: базовый инструмент командной строки для создания и управления сертификатами, ключами и другими файлами OpenSSL.
-# req: эта подкоманда указывает, что на данном этапе нужно использовать запрос на подпись сертификата X.509 (CSR). X.509 – это стандарт инфраструктуры открытого ключа, которого придерживаются SSL и TLS при управлении ключами и сертификатами. То есть, данная команда позволяет создать новый сертификат X.509.
-# -x509: эта опция вносит поправку в предыдущую субкоманду, сообщая утилите о том, что вместо запроса на подписание сертификата необходимо создать самоподписанный сертификат.
-# -nodes: пропускает опцию защиты сертификата парольной фразой. Нужно, чтобы при запуске сервер Nginx имел возможность читать файл без вмешательства пользователя. Установив пароль, придется вводить его после каждой перезагрузки.
-# -days 365: эта опция устанавливает срок действия сертификата (как видите, в данном случае сертификат действителен в течение года).
-# -newkey rsa:2048: эта опция позволяет одновременно создать новый сертификат и новый ключ. Поскольку ключ, необходимый для подписания сертификата, не был создан ранее, нужно создать его вместе с сертификатом. Данная опция создаст ключ RSA на 2048 бит.
-# -keyout: эта опция сообщает OpenSSL, куда поместить сгенерированный файл ключа.
-# -out: сообщает OpenSSL, куда поместить созданный сертификат.
+#!/bin/sh
 
 echo "NGINX: script start!";
 if [ ! -f /etc/ssl/certs/nginx-selfsigned.crt ]; then
 echo "NGINX: set ssl start";
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key \
-            -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=RU/ST=Tatarstan/L=Kazan";
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
+        -subj "/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=KazanCampus/CN=sfearow.42.fr";
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048;
 echo "NGINX: set ssl done!";
 fi
-/usr/sbin/nginx -c /etc/nginx/nginx.conf -g "daemon off";
+nginx -c /etc/nginx/nginx.conf;
