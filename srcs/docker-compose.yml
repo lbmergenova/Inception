@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx:
+    # depends_on:
+    #   - wordpress
+    container_name: nginx
+    build:
+      context: ./requirements/nginx/
+    ports:
+      - "443:443"
+    networks:
+      - dockernetwork
+    volumes:
+      - wp_volume:/var/www/html
+    restart: always
+    # networks:
+    #   - docker_net
+
+volumes:
+  wp_volume:
+    name: wp_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/wp
+
+networks:
+  dockernetwork:
+    name: docker_net
+    driver: bridge
+    

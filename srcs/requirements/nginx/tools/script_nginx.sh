@@ -1,11 +1,10 @@
 #!/bin/sh
 
 echo "NGINX: script start!";
-if [ ! -f /etc/ssl/certs/nginx-selfsigned.crt ]; then
+if [ ! -f /etc/nginx/private.key ]; then
 echo "NGINX: set ssl start";
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
-        -subj "/C=RU/ST=Tatarstan/L=Kazan/O=21school/OU=KazanCampus/CN=sfearow.42.fr";
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048;
+openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out /etc/nginx/certificate.crt \
+-keyout /etc/nginx/private.key -subj "/C=RU/ST=Moscow/L=Moscow /O=21 School/OU=srorscha/CN=srorscha.42.fr/emailAddress=unknown"
 echo "NGINX: set ssl done!";
 fi
-nginx -c /etc/nginx/nginx.conf;
+exec "$@"
