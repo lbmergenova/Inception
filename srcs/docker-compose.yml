@@ -2,20 +2,44 @@ version: '3'
 
 services:
   nginx:
-    # depends_on:
-    #   - wordpress
+    depends_on:
+      - wordpress
     container_name: nginx
+    images: nginx
     build:
       context: ./requirements/nginx/
     ports:
       - "443:443"
     networks:
-      - dockernetwork
+      - docker_net
     volumes:
       - wp_volume:/var/www/html
     restart: always
-    # networks:
-    #   - docker_net
+
+  wordpress
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    images: wordpress
+    build:
+      context: ./requirements/wordpress/
+    networks:
+      - docker_net
+    volumes:
+      - wp_volume:/var/www/html
+    restart: always
+
+  mariadb
+    container_name: mariadb
+    images: mariadb
+    build:
+      context: ./requirements/mariadb/
+    networks:
+      - docker_net
+    # volumes:
+    #   - wp_volume:/var/www/html
+    restart: always
+  
 
 volumes:
   wp_volume:
