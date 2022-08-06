@@ -1,45 +1,51 @@
-version: '3'
+version: '2.7'
 
 services:
   nginx:
     depends_on:
       - wordpress
     container_name: nginx
-    images: nginx
     build:
       context: ./requirements/nginx/
+    image: nginx
     ports:
       - "443:443"
     networks:
-      - docker_net
+      - dockernetwork
     volumes:
-      - wp_volume:/var/www/html
+      - wp_volume:/var/www/wordpress
     restart: always
 
-  wordpress
+  wordpress:
     depends_on:
       - mariadb
     container_name: wordpress
-    images: wordpress
+    env_file: .env
     build:
       context: ./requirements/wordpress/
+    image: wordpress
     networks:
-      - docker_net
+      - dockernetwork
     volumes:
-      - wp_volume:/var/www/html
+      - wp_volume:/var/www/wordpress
     restart: always
 
-  mariadb
+  mariadb:
     container_name: mariadb
-    images: mariadb
     build:
       context: ./requirements/mariadb/
+      args:
+        DB_NAME: ${MYSQL_NAME}
+        DB_USER: ${MYSQL_USER}
+        DB_PASS: ${MYSQL_PASSWORD}
+        DB_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+    image: mariadb
+    # env_file: .env
     networks:
-      - docker_net
-    # volumes:
-    #   - wp_volume:/var/www/html
+      - dockernetwork
+    volumes:
+      - db_volume:/var/lib/mysql
     restart: always
-  
 
 volumes:
   wp_volume:
@@ -49,9 +55,15 @@ volumes:
       type: none
       o: bind
       device: /home/${USER}/data/wp
+  db_volume:
+    name: db_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${USER}/data/db
 
 networks:
   dockernetwork:
     name: docker_net
-    driver: bridge
     
