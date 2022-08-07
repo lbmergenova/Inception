@@ -8,6 +8,8 @@ echo "WordPress: create config file!";
     sed -i "s|'username_here'|'$MYSQL_USER'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'password_here'|'$MYSQL_PASSWORD'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'localhost'|'$MYSQL_HOST'|g" /var/www/wordpress/wp-config.php;
+    sed -i "s|'wp_home_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
+    sed -i "s|'wp_seturl_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
     chown -R www-data:www-data /var/www/wordpress
 	cd /var/www/wordpress && wp core download --allow-root
 	wp core install --allow-root \
@@ -17,14 +19,7 @@ echo "WordPress: create config file!";
 				--admin_password=$WORDPRESS_ADMIN_PASS \
 				--admin_email=$WORDPRESS_ADMIN_MAIL
 	wp user create --allow-root $WORDPRESS_USER_NICK $WORDPRESS_USER_MAIL --user_pass=$WORDPRESS_USER_PASS
-	# wp theme activate twentysixteen
-
-	#  Без этих записей не подгружеат таблицу стилей и остальной контент
-
-	sed "2idefine('WP_HOME','https://$DOMIAN_NAME');" /var/www/wordpress/wp-config.php >> /var/www/wordpress/wp-config.php.new
-	mv /var/www/wordpress/wp-config.php.new /var/www/wordpress/wp-config.php
-	sed "2idefine('WP_SITEURL','https://$DOMIAN_NAME');" /var/www/wordpress/wp-config.php >> /var/www/wordpress/wp-config.php.new
-	mv /var/www/wordpress/wp-config.php.new /var/www/wordpress/wp-config.php
+	# wp theme install twentyseventeen --activate --allow-root
 
 	# wp core update-db
 fi

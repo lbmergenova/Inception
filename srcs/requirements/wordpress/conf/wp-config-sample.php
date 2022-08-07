@@ -37,6 +37,10 @@ define( 'DB_CHARSET', 'utf8' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
+define('FS_METHOD', 'direct');
+define('WP_HOME', 'wp_home_here');
+define('WP_SITEURL', 'wp_seturl_here');
+
 /**#@+
  * Authentication unique keys and salts.
  *
