@@ -24,5 +24,5 @@ RUN sed -i "s/REPLACE_DB_NAME/$DB_NAME/g" /createdb.sql && \
 
 RUN service mysql start && mysql < createdb.sql && rm -f createdb.sql
 
-CMD ["mysqld"]
-# CMD ip a && /usr/bin/mysqld_safe
+# CMD ["mysqld"]
+CMD ip a && /usr/bin/mysqld_safe
