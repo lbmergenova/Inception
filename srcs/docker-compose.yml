@@ -35,11 +35,11 @@ services:
     container_name: mariadb
     build:
       context: ./requirements/mariadb/
-      args:
-        DB_NAME: ${MYSQL_NAME}
-        DB_USER: ${MYSQL_USER}
-        DB_PASS: ${MYSQL_PASSWORD}
-        DB_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
+      # args:
+      #   DB_NAME: ${MYSQL_NAME}
+      #   DB_USER: ${MYSQL_USER}
+      #   DB_PASS: ${MYSQL_PASSWORD}
+      #   DB_ROOT_PASS: ${MYSQL_ROOT_PASSWORD}
     image: mariadb
     env_file: .env
     networks:
