@@ -20,4 +20,5 @@ RUN sed -i "s/REPLACE_DB_NAME/$DB_NAME/g" /createdb.sql && \
     sed -i "s/REPLACE_ROOT_PASS/$DB_ROOT_PASS/g" /createdb.sql
 RUN service mysql start && mysql < createdb.sql
 RUN rm -f createdb.sql
+
 CMD /usr/bin/mysqld_safe
