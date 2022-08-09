@@ -5,9 +5,8 @@ FROM debian:buster
 RUN apt-get -y update && apt-get -y install nginx && apt-get -y install openssl procps
 
 # Copy the Nginx config
-# COPY ./conf/default /etc/nginx/sites-available/default
-COPY ./conf/default /etc/nginx/sites-enabled/default
 # https://www.netnea.com/cms/nginx-tutorial-2_minimal-nginx-configuration/
+COPY ./conf/default /etc/nginx/sites-enabled/default
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 # Expose the port for access

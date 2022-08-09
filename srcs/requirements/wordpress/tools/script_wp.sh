@@ -8,7 +8,6 @@ echo "WordPress: create config file!";
     sed -i "s|'username_here'|'$MYSQL_USER'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'password_here'|'$MYSQL_PASSWORD'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'localhost'|'$DB_HOST'|g" /var/www/wordpress/wp-config.php;
-    # sed -i "s|'localhost'|'mariadb'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'wp_home_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
     sed -i "s|'wp_seturl_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
     chown -R www-data:www-data /var/www/wordpress
@@ -27,8 +26,8 @@ fi
 echo "WordPress: script start! exec ";
 exec "$@"
 
-
-mv /var/www/wp-config.php /var/www/html/wp-config.php
+# ?????
+mv /var/www/wp-config.php /var/www/wordpress/wp-config.php
 chown -R www-data:www-data /var/www/*
 chown -R 755 /var/www/*
 # создаем администратора
