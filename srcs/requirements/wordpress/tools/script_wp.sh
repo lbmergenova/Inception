@@ -28,7 +28,7 @@ wp user create  $WP_USER_NICK $WP_USER_MAIL \
 				--allow-root \
 				--path="/var/www/wordpress"
 
-wp theme install twentytwentyone --activate --allow-root
+# wp theme install twentytwentyone --activate --allow-root
 
 fi
 

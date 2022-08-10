@@ -4,6 +4,7 @@ FROM debian:buster
 # Install Nginx and Openssl
 RUN apt-get update && apt-get -y install mariadb-server procps
 
+# Copy config
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Expose the port for access
