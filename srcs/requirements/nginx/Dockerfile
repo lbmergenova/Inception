@@ -15,4 +15,3 @@ EXPOSE 443
 COPY ./tools/script_nginx.sh /
 RUN chmod +x script_nginx.sh
 ENTRYPOINT ["./script_nginx.sh"]
-CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]

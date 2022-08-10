@@ -1,20 +1,38 @@
 #!/bin/sh
 
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
-    cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
-    sed -i "s|'database_name_here'|'$DB_NAME'|g" /var/www/wordpress/wp-config.php;
-    sed -i "s|'username_here'|'$MYSQL_USER'|g" /var/www/wordpress/wp-config.php;
-    sed -i "s|'password_here'|'$MYSQL_PASSWORD'|g" /var/www/wordpress/wp-config.php;
-    sed -i "s|'localhost'|'$DB_HOST'|g" /var/www/wordpress/wp-config.php;
-    sed -i "s|'wp_home_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
-    sed -i "s|'wp_seturl_here'|'https://$DOMAIN_NAME'|g" /var/www/wordpress/wp-config.php;
-    # chown -R www-data:www-data /var/www/wordpress
-	cd /var/www/wordpress && wp core download --allow-root
-	wp core install --allow-root --url=$WORDPRESS_URLL \
-				--title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_NICK \
-				--admin_password=$WORDPRESS_ADMIN_PASS --admin_email=$WORDPRESS_ADMIN_MAIL
-	wp user create --allow-root $WORDPRESS_USER_NICK $WORDPRESS_USER_MAIL --user_pass=$WORDPRESS_USER_PASS --role=editor
-	# wp theme install twentytwenty --activate --allow-root
+if [ ! -f /var/www/wordpress/index.php ] ; then
+echo "Install wordpress"
+
+wp core download    --allow-root --path="/var/www/wordpress"
+
+wp core config	--allow-root \
+				--skip-check \
+				--dbname=$DB_NAME \
+				--dbuser=$MYSQL_USER \
+				--dbpass=$MYSQL_PASSWORD \
+				--dbhost=$DB_HOST \
+				--dbprefix=$DB_PREFIX \
+				--path="/var/www/wordpress"
+
+wp core install	--allow-root \
+				--url=$DOMAIN_NAME \
+				--title="Inception" \
+				--admin_user=$WP_ADMIN_NICK \
+				--admin_password=$WP_ADMIN_PASS \
+				--admin_email=$WP_ADMIN_MAIL \
+				--path="/var/www/wordpress"
+
+wp user create  $WP_USER_NICK $WP_USER_MAIL \
+				--role=author \
+				--user_pass=$WP_USER_PASS \
+				--allow-root \
+				--path="/var/www/wordpress"
+
+wp theme install twentytwentyone --activate --allow-root
 
 fi
-exec "$@"
+
+service php7.3-fpm start ;
+service php7.3-fpm stop ;
+
+exec php-fpm7.3 --nodaemonize

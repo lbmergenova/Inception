@@ -29,6 +29,4 @@ fclean:	down
 	@docker system prune -a --force
 	sudo rm -Rf /home/${USER}/data
 
-re: fclean up
-
 .PHONY:	all up down stop start ps fclean re
