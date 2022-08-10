@@ -2,13 +2,7 @@
 FROM debian:buster
 
 # Install php extensions for WordPress
-RUN apt-get update && apt-get -y install curl php7.3 php-mysqli php-fpm mariadb-client procps sendmail \
-                        php-common php-iconv php-json \
-						php-gd php-curl php-xml php-imap\
-						php-cgi php-pdo php-soap \
-						php-xmlrpc php-posix php-gettext \
-						php-ldap php-ctype php-dom \
-						php-mbstring php-phar
+RUN apt-get update && apt-get -y install curl php7.3 php-mysqli php-fpm mariadb-client procps sendmail
 
 # Expose the port for access
 EXPOSE 9000

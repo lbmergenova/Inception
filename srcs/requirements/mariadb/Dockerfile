@@ -2,7 +2,8 @@
 FROM debian:buster
 
 # Install Nginx and Openssl
-RUN apt-get update && apt-get install mariadb-server -y
+RUN apt-get update && apt-get -y install mariadb-server procps
+
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY ./tools/createdb.sql /
 
@@ -21,4 +22,5 @@ RUN sed -i "s/REPLACE_DB_NAME/$DB_NAME/g" /createdb.sql && \
 RUN service mysql start && mysql < createdb.sql
 RUN rm -f createdb.sql
 
-CMD /usr/bin/mysqld_safe
+# CMD ["mysqld"]
+CMD ip a && /usr/bin/mysqld_safe

@@ -52,14 +52,14 @@ define('WP_SITEURL', 'wp_seturl_here');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '52g~wUA9-rM|9pOZoRS]/9!&}Za!wQOPxhPO+r ~;f8jb:{<--v-XefXkuzL^]i?');
-define('SECURE_AUTH_KEY',  '2{yvqFocQe@Cr>f[$|5$#{iu+$5Q<[cFGZVMd+_FRY;JDiO9c/9qL8x&v|-xSq_1');
-define('LOGGED_IN_KEY',    'ul0|9<6uF$V({7_f[(Qx=xq+-ctm(1!3>l8%EbsIE;%>e>2/|0Bv7??1,rH)o2yG');
-define('NONCE_KEY',        '7(:$cA(WC<&|pXh+[RTX n/93zHOwN]41mt-H[FInbx++UXw-$ N{4j/f{q+k-n]');
-define('AUTH_SALT',        'j-I*bol!8j>aPf~<ez_TYpa?t/S,*YeE2ahrnf~o{;lb+,zIa_~`!7EE/R}.$gz7');
-define('SECURE_AUTH_SALT', 'WQy2c:?8~UX0tX9Phguu1(dQ6!c|:s<jAuJ%x_:>8GF)kD|;|aI4t)>nO|Za&ybE');
-define('LOGGED_IN_SALT',   'FB?yfN`XjA ,:]q-hf/+QP^|3kZbKb2 1q]V84SscI=-!j,E 7LvBK1b^zm|&-(I');
-define('NONCE_SALT',       '$@!(TxvWJR v|intT9i1|Ktcft::LL1{JyHGU*x|NRk5Gtr|-bEr5#<$D_h53c8a');
+define( 'AUTH_KEY',         'something unique, you know' );
+define( 'SECURE_AUTH_KEY',  'something unique, you know' );
+define( 'LOGGED_IN_KEY',    'something unique, you know' );
+define( 'NONCE_KEY',        'something unique, you know' );
+define( 'AUTH_SALT',        'something unique, you know' );
+define( 'SECURE_AUTH_SALT', 'something unique, you know' );
+define( 'LOGGED_IN_SALT',   'something unique, you know' );
+define( 'NONCE_SALT',       'something unique, you know' );
 /**#@-*/
 
 /**

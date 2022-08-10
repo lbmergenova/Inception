@@ -2,7 +2,7 @@
 FROM debian:buster
 
 # Install Nginx and Openssl
-RUN apt-get -y update && apt-get -y install nginx && apt-get -y install openssl procps
+RUN apt-get -y update && apt-get -y install nginx openssl procps
 
 # Copy the Nginx config
 # https://www.netnea.com/cms/nginx-tutorial-2_minimal-nginx-configuration/
